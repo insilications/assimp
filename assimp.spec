@@ -4,7 +4,7 @@
 #
 Name     : assimp
 Version  : 4.1.0
-Release  : 2
+Release  : 3
 URL      : https://github.com/assimp/assimp/archive/v4.1.0.tar.gz
 Source0  : https://github.com/assimp/assimp/archive/v4.1.0.tar.gz
 Summary  : Import various well-known 3D model formats in an uniform manner.
