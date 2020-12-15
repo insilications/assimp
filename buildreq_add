@@ -3,3 +3,6 @@
 qtbase-extras
 mesa-dev
 zlib-dev
+zlib-staticdev
+double-conversion-dev
+double-conversion-staticdev
