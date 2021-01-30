@@ -12,7 +12,6 @@ Summary  : Import various well-known 3D model formats in an uniform manner.
 Group    : Development/Tools
 License  : GPL-2.0+
 Requires: assimp-bin = %{version}-%{release}
-Requires: assimp-lib = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-distutils3
 BuildRequires : double-conversion-dev
@@ -49,21 +48,12 @@ bin components for the assimp package.
 %package dev
 Summary: dev components for the assimp package.
 Group: Development
-Requires: assimp-lib = %{version}-%{release}
 Requires: assimp-bin = %{version}-%{release}
 Provides: assimp-devel = %{version}-%{release}
 Requires: assimp = %{version}-%{release}
 
 %description dev
 dev components for the assimp package.
-
-
-%package lib
-Summary: lib components for the assimp package.
-Group: Libraries
-
-%description lib
-lib components for the assimp package.
 
 
 %package staticdev
@@ -85,7 +75,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1612041615
+export SOURCE_DATE_EPOCH=1612046279
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -120,6 +110,7 @@ export CCACHE_BASEDIR=/builddir/build/BUILD
 #
 ## altflags1 end
 %cmake .. -DASSIMP_LIB_INSTALL_DIR=lib64 \
+-DCMAKE_INSTALL_LIBDIR=lib64 \
 -DBUILD_SHARED_LIBS=OFF \
 -DASSIMP_DOUBLE_PRECISION=OFF \
 -DASSIMP_BUILD_TESTS=OFF
@@ -159,14 +150,15 @@ export CCACHE_BASEDIR=/builddir/build/BUILD
 #
 ## altflags1 end
 %cmake .. -DASSIMP_LIB_INSTALL_DIR=lib64 \
--DBUILD_SHARED_LIBS=ON \
+-DCMAKE_INSTALL_LIBDIR=lib64 \
+-DBUILD_SHARED_LIBS=OFF \
 -DASSIMP_DOUBLE_PRECISION=OFF \
 -DASSIMP_BUILD_TESTS=OFF
 make  %{?_smp_mflags}  -j12 V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1612041615
+export SOURCE_DATE_EPOCH=1612046279
 rm -rf %{buildroot}
 pushd clr-build-special
 %make_install_special  || :
@@ -274,13 +266,7 @@ popd
 /usr/lib64/cmake/assimp-5.0/assimpConfigVersion.cmake
 /usr/lib64/cmake/assimp-5.0/assimpTargets-relwithdebinfo.cmake
 /usr/lib64/cmake/assimp-5.0/assimpTargets.cmake
-/usr/lib64/libassimp.so
 /usr/lib64/pkgconfig/assimp.pc
-
-%files lib
-%defattr(-,root,root,-)
-/usr/lib64/libassimp.so.5
-/usr/lib64/libassimp.so.5.0.1
 
 %files staticdev
 %defattr(-,root,root,-)
